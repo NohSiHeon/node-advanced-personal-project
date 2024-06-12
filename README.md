@@ -19,6 +19,7 @@ yarn
 ```
 
 - DB 테이블 생성
+
 ```sh
 yarn prisma db push
 ```
@@ -33,31 +34,6 @@ yarn start
 
 ```sh
 yarn dev
-```
-
-# 실행 방법 (with npm)
-
-- 필요한 패키지 설치
-
-```sh
-npm install
-```
-
-- DB 테이블 생성
-```sh
-npx prisma db push
-```
-
-- 서버 실행 (배포용)
-
-```sh
-npm run start
-```
-
-- 서버 실행 (개발용)
-
-```sh
-npm run dev
 ```
 
 # API 명세서
