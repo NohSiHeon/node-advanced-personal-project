@@ -1,4 +1,5 @@
 import { MESSAGES } from "../constants/message.constant.js";
+import { HttpError } from "../errors/http.error.js";
 import { ResumesRepository } from "../repositories/resumes.repository.js"
 export class ResumesService {
 
@@ -51,9 +52,9 @@ export class ResumesService {
 	getResumeById = async (id, authorId) => {
 
 		let resume = await this.resumesRepository.findResumeById(id, authorId);
-		console.log(resume);
+
 		if (!resume) {
-			throw new Error(MESSAGES.RESUMES.COMMON.NOT_FOUND);
+			throw new HttpError.NotFound(MESSAGES.RESUMES.COMMON.NOT_FOUND);
 		}
 
 		resume = {
@@ -74,7 +75,7 @@ export class ResumesService {
 
 		const updatedResume = await this.resumesRepository.updateResume(id, authorId, title, content);
 		if (!updatedResume) {
-			throw new Error(MESSAGES.RESUMES.COMMON.NOT_FOUND);
+			throw new HttpError.NotFound(MESSAGES.RESUMES.COMMON.NOT_FOUND);
 		}
 
 		return updatedResume;
@@ -86,7 +87,7 @@ export class ResumesService {
 		const deletedResume = await this.resumesRepository.deleteResumeById(id, authorId);
 
 		if (!deletedResume) {
-			throw new Error(MESSAGES.RESUMES.COMMON.NOT_FOUND);
+			throw new HttpError.NotFound(MESSAGES.RESUMES.COMMON.NOT_FOUND);
 		}
 
 		return deletedResume;
