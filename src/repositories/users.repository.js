@@ -22,4 +22,11 @@ export class UsersRepository {
 	}
 
 
+	// 토큰 인증
+	findById = async (id) => {
+		return await prisma.user.findUnique({
+			where: { id },
+			omit: { password: true },
+		});
+	}
 }
