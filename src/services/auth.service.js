@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 import { ACCESS_TOKEN_SECRET } from "../constants/env.constant.js";
 import { ACCESS_TOKEN_EXPIRES_IN } from "../constants/auth.constant.js";
 import jwt from 'jsonwebtoken';
+import { HttpError } from "../errors/http.error.js";
 
 
 
@@ -18,7 +19,7 @@ export class AuthService {
 
 		// 중복 이메일 유효성 검증
 		if (alreadyExistUser) {
-			throw new Error(MESSAGES.AUTH.COMMON.EMAIL.DUPLICATED);
+			throw new HttpError.Conflict(MESSAGES.AUTH.COMMON.EMAIL.DUPLICATED);
 		}
 
 		// 패스워드 암호화
@@ -44,7 +45,7 @@ export class AuthService {
 		const isPasswordMatched = user && bcrypt.compareSync(password, user.password);
 
 		if (!isPasswordMatched) {
-			throw new Error(MESSAGES.AUTH.COMMON.UNAUTHORIZED);
+			throw new HttpError.Unauthorized(MESSAGES.AUTH.COMMON.UNAUTHORIZED);
 		}
 
 		const payload = { id: user.id };
